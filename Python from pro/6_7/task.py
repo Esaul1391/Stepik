@@ -133,27 +133,83 @@
 
 
 
-from collections import defaultdict
+# from collections import defaultdict
+#
+# def calculate_cost(products):
+#     product_counts = defaultdict(int)
+#     product_prices = {}
+#
+#     # Считаем количество каждого товара
+#     for product in products:
+#         product_counts[product] += 1
+#
+#     # Заполняем цены для каждого товара (сумма Unicode кодов)
+#     for product in sorted(product_counts.keys()):
+#         unicode_sum = sum(ord(char) for char in product)
+#         product_prices[product] = unicode_sum
+#     sort_pr = dict(sorted(product_counts.items(), key=lambda item: item[1]))
+#     # Выводим результат
+#     for product, count in sort_pr.items():
+#         cost_per_unit = product_prices[product]
+#         total_cost = cost_per_unit * count
+#         print(f"{product}: {cost_per_unit} UC x {count} = {total_cost} UC")
+#
+# # Считываем входные данные и вызываем функцию
+# input_products = input().split(',')
+# calculate_cost(input_products)
 
-def calculate_cost(products):
-    product_counts = defaultdict(int)
-    product_prices = {}
 
-    # Считаем количество каждого товара
-    for product in products:
-        product_counts[product] += 1
+# from collections import Counter
+#
+# words = input().lower().split(" ")
+# words_counter = Counter(words)
+# most_common_words = words_counter.most_common()
+# most_common_words = max(most_common_words, key=lambda x: (x[1], x[0]))
+# print(most_common_words[0])
 
-    # Заполняем цены для каждого товара (сумма Unicode кодов)
-    for product in sorted(product_counts.keys()):
-        unicode_sum = sum(ord(char) for char in product)
-        product_prices[product] = unicode_sum
-    sort_pr = dict(sorted(product_counts.items(), key=lambda item: item[1]))
-    # Выводим результат
-    for product, count in sort_pr.items():
-        cost_per_unit = product_prices[product]
-        total_cost = cost_per_unit * count
-        print(f"{product}: {cost_per_unit} UC x {count} = {total_cost} UC")
 
-# Считываем входные данные и вызываем функцию
-input_products = input().split(',')
-calculate_cost(input_products)
+# from collections import defaultdict
+#
+# # Чтение входных данных
+# words = input().split()
+#
+# # Группировка слов по длине
+# word_lengths = defaultdict(list)
+# for word in words:
+#     word_lengths[len(word)].append(word)
+#
+# # Сортировка групп по количеству слов в них
+# sorted_word_lengths = sorted(word_lengths.items(), key=lambda x: (len(x[1]), words.index(x[1][0])))
+#
+# # Вывод результата
+# for length, word_group in sorted_word_lengths:
+#     print(f"Слов длины {length}: {len(word_group)}")
+#
+
+
+
+
+# from collections import defaultdict
+#
+# # Чтение входных данных
+# words = input().split()
+# d = defaultdict(int)
+# print(words)
+
+
+from collections import Counter
+
+def min_values(counter):
+    min_value = min(counter.values())
+    return [(key, value) for key, value in counter.items() if value == min_value]
+
+def max_values(counter):
+    max_value = max(counter.values())
+    return [(key, value) for key, value in counter.items() if value == max_value]
+
+# Пример использования
+data = Counter('aksjaskfjsklfjdslkfjajfopewtoieqpwdpqworiiqjskanvmcxbmpewrqopkqwlmdzczmxvmvlnjpjqpkqzxvmbowiqeorewi')
+
+# Используем функции
+print(min_values(data))
+print(max_values(data))
