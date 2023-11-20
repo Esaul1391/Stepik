@@ -197,19 +197,37 @@
 # print(words)
 
 
-from collections import Counter
+# from collections import Counter
+#
+# def min_values(counter):
+#     min_value = min(counter.values())
+#     return [(key, value) for key, value in counter.items() if value == min_value]
+#
+# def max_values(counter):
+#     max_value = max(counter.values())
+#     return [(key, value) for key, value in counter.items() if value == max_value]
+#
+# # Пример использования
+# data = Counter('aksjaskfjsklfjdslkfjajfopewtoieqpwdpqworiiqjskanvmcxbmpewrqopkqwlmdzczmxvmvlnjpjqpkqzxvmbowiqeorewi')
+#
+# # Используем функции
+# print(min_values(data))
+# print(max_values(data))
 
-def min_values(counter):
-    min_value = min(counter.values())
-    return [(key, value) for key, value in counter.items() if value == min_value]
 
-def max_values(counter):
-    max_value = max(counter.values())
-    return [(key, value) for key, value in counter.items() if value == max_value]
+global_variable = 'Глобальная'
 
-# Пример использования
-data = Counter('aksjaskfjsklfjdslkfjajfopewtoieqpwdpqworiiqjskanvmcxbmpewrqopkqwlmdzczmxvmvlnjpjqpkqzxvmbowiqeorewi')
 
-# Используем функции
-print(min_values(data))
-print(max_values(data))
+def some_func(passed_variable):
+    local_variable = 'Локальная'
+
+    def inside_func():
+        inside_local_variable = 'Внутренняя'
+        return(f'{global_variable} '
+               f'{local_variable} '
+               f'{passed_variable} '
+               f'{inside_local_variable}')
+    print(inside_func())
+
+some_func('Параметр')
+# Будет намечатано: Глобальная Локальная Параметр Внутренняя
