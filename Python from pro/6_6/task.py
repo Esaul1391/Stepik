@@ -14,9 +14,10 @@
 from collections import OrderedDict
 
 data = OrderedDict({'Name': 'Брусника', 'IsNetObject': 'да', 'OperatingCompany': 'Брусника', 'TypeObject': 'кафе', 'AdmArea': 'Центральный административный округ', 'District': 'район Арбат', 'Address': 'город Москва, переулок Сивцев Вражек, дом 6/2', 'SeatsCount': '10'})
+new_data = OrderedDict()
 
-# data_copy = data.copy()
-# for i in data_copy:
-#     data.move_to_end(i)
-data = reversed(data.items())
-print(*data)
+for rule in (True, False) * (len(data)//2) :
+    key, value = data.popitem(last=rule)
+    new_data[key] = value
+
+print(new_data)

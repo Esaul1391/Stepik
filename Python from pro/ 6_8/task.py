@@ -8,8 +8,7 @@
 # witcher_inventory.subtract(losses)
 #
 # print(witcher_inventory)
-
-
+import csv
 # from collections import Counter
 #
 # counter1 = Counter(a=2, b=3, c=6)
@@ -19,16 +18,30 @@
 
 
 
+# from collections import Counter
+#
+# sp = input().lower().split()
+# l = Counter(sp)
+# l = l.most_common(1)
+# print(l[0][0])
+# # sp = []
+# # for i in range(len(l)):
+# #     if l[i][1] == l[0][1]:
+# #         sp.append(l[i][0])
+# # # sp = sorted(sp)
+# #
+# # print(sp[0])
+
+
 from collections import Counter
 
-sp = input().lower().split()
-l = Counter(sp)
-l = l.most_common(1)
-print(l[0][0])
-# sp = []
-# for i in range(len(l)):
-#     if l[i][1] == l[0][1]:
-#         sp.append(l[i][0])
-# # sp = sorted(sp)
-#
-# print(sp[0])
+f = "name_log.csv"
+
+with open(f, encoding='utf-8') as file:
+    reader = csv.reader(file)
+
+    next(reader)
+    changes_count = Counter(row[1] for row in reader)
+
+for email, count in sorted(changes_count.items()):
+    print(f"{email}: {count}")
