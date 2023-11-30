@@ -1,13 +1,37 @@
-def is_greater(data, number):
-    sp = []
-    for i in data:
-        sp.append(sum(i)>number)
+def zip_longest(*args, fill=None):
+    m = max(args, key=len)
+    for i in args:
+        while len(i)!=m:
+            i.append(fill)
+    return zip(args)
 
-    return any(sp)
+data = [[1, 2, 3, 4, 5], ['one', 'two', 'three'], ['I', 'II']]
+print(zip_longest(*data))
 
-data = [[0, 1, 2], [0, 3], [1, 1, 1], [3]]
 
-print(is_greater(data, 3))
+# names = ['Moana', 'Cars', 'Zootopia', 'Ratatouille', 'Coco', 'Inside Out', 'Finding Nemo', 'Frozen']
+# budgets = [150000000, 120000000, 150000000, 150000000, 180000000, 175000000, 94000000, 150000000]
+# box_offices = [643331111, 462216280, 1023784195, 620702951, 807082196, 857611174, 940335536, 1280802282]
+#
+# profits = [box_offices - budgets for box_offices, budgets in zip(box_offices, budgets)]
+#
+# res = sorted(zip(names, profits))
+#
+# for film, prof in res:
+#     print(f"{film}: {prof}$")
+
+
+# def is_greater(data, number):
+#     sp = []
+#     for i in data:
+
+#         sp.append(sum(i)>number)
+#
+#     return any(sp)
+#
+# data = [[0, 1, 2], [0, 3], [1, 1, 1], [3]]
+#
+# print(is_greater(data, 3))
 
 
 
