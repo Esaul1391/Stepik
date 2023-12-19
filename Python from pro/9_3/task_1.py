@@ -1,4 +1,2 @@
-# f = lambda: 10
-# print(f)
-
-
+f = lambda: 10
+print(f)
