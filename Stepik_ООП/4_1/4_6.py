@@ -38,5 +38,13 @@ class Account:
 
     @property
     def password(self):
-        return hash_function(self.password)
+        res = self.hash_function(self.password)
+        return res
 
+    @password.setter
+    def password(self, value):
+        self.password = value
+account = Account('hannymad', 'cakeisalie')
+
+print(account.login)
+print(account.password)
