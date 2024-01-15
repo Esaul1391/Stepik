@@ -17,34 +17,37 @@
 # print(person.fullname)
 
 
-class Account:
-    def __init__(self, login, password):
-        self.login = login
-        self.password = password
+# class Account:
+#     def __init__(self, login, password):
+#         self.login = login
+#         self.password = password
+#
+#     def hash_function(password):
+#         hash_value = 0
+#         for char, index in zip(password, range(len(password))):
+#             hash_value += ord(char) * index
+#         return hash_value % 10 ** 9
+#
+#     @property
+#     def login(self):
+#         return self.login
+#
+#     @login.setter
+#     def login(self, value):
+#         raise AttributeError
+#
+#     @property
+#     def password(self):
+#         res = self.hash_function(self.password)
+#         return res
+#
+#     @password.setter
+#     def password(self, value):
+#         self.password = value
+# account = Account('hannymad', 'cakeisalie')
+#
+# print(account.login)
+# print(account.password)
 
-    def hash_function(password):
-        hash_value = 0
-        for char, index in zip(password, range(len(password))):
-            hash_value += ord(char) * index
-        return hash_value % 10 ** 9
 
-    @property
-    def login(self):
-        return self.login
 
-    @login.setter
-    def login(self, value):
-        raise AttributeError
-
-    @property
-    def password(self):
-        res = self.hash_function(self.password)
-        return res
-
-    @password.setter
-    def password(self, value):
-        self.password = value
-account = Account('hannymad', 'cakeisalie')
-
-print(account.login)
-print(account.password)
