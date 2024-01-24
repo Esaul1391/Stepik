@@ -1,3 +1,19 @@
+#
+# def stop_on(iterable, obj):
+#     for i in iterable:
+#         if i == obj:
+#             return
+#         yield i
+
+
+
+# from collections import Counter
+# def unique(iterable):
+#     for i in Counter(iterable):
+#         yield i
+
+
+
 # from collections import namedtuple
 #
 # Person = namedtuple('Person', ['name', 'nationality', 'sex', 'birth', 'death'])
@@ -18,12 +34,12 @@
 # youngest_swedish_male = min(gen, key=lambda p: 2023 - p.birth)
 # print(youngest_swedish_male.name)
 
-def parse_ranges(ranges):
-    for r in ranges.split(','):
-        st, end = map(int, r.split('-'))
-        yield from range(st, end + 1)
-
-
-
-
-print(*parse_ranges('1-2,4-4,8-10'))
+# def parse_ranges(ranges):
+#     for r in ranges.split(','):
+#         st, end = map(int, r.split('-'))
+#         yield from range(st, end + 1)
+#
+#
+#
+#
+# print(*parse_ranges('1-2,4-4,8-10'))
