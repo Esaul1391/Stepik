@@ -1,74 +1,45 @@
-class NonNegativeObject:
+class Const:
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
-            if isinstance(value, (int, float)) and value < 0:
-                setattr(self, key, abs(value))
-            else:
-                setattr(self, key, value)
+            object.__setattr__(self, key, value)
 
-point = NonNegativeObject(x=1, y=-2, z=0, color='black')
 
-print(point.x)
-print(point.y)
-print(point.z)
-print(point.color)
+    def __getattribute__(self, item):
+        return object.__getattribute__(self, item)
 
-# class DefaultObject:
-#     def __init__(self, default=None, **kwargs):
-#         self._default = default
-#         self._attributes = kwargs
+
+    def __setattr__(self, key, value):
+        if key in self.__dict__:
+            raise AttributeError('Изменение значения атрибута невозможно')
+        else:
+            object.__setattr__(self, key, value)
+
+    def __delattr__(self, item):
+        raise AttributeError('Удаление атрибута невозможно')
+
+
+
+
+# class AttrsNumberObject:
+#     def __init__(self, **kwargs):
+#         self.attrs_num = len(kwargs) + 1
+#         for key, value in kwargs.items():
+#             object.__setattr__(self, key, value)
 #
-#     def __getattr__(self, attr):
-#         return self._attributes.get(attr, self._default)
-#
-#
-# god = DefaultObject(name='Kratos', mythology='greek')
-# print('name' in god.__dict__)
-# print('mythology' in god.__dict__)
-
-# class Ord:
-#     def __getattribute__(self, item):
-#         res = str(ord(item))
-#         return res
-#
-#
-# obj = Ord()
-#
-# print(obj.a)
-# print(obj.b)
-
-
-
-
-
-# class Logger:
 #     def __setattr__(self, key, value):
-#         print(f'Изменение значения атрибута {key} на {value}')
-#         self.__dict__[key] = value
+#         if hasattr(self, 'attrs_num'):
+#             self.attrs_num += 1
+#         object.__setattr__(self, key, value)
+#
 #
 #     def __delattr__(self, item):
-#         print(f'Удаление атрибута {item}')
-#         del self.__dict__[item]
-
-
-
-# class Item:
-#     def __init__(self, name, price, quantity):
-#         self.name = name
-#         self.price = price
-#         self.quantity = quantity
-#
-#     def __getattribute__(self, name):
-#         if name == 'total':
-#             return self.price * self.quantity
-#         elif name == 'name':
-#             return object.__getattribute__(self, name.title())
-#         return object.__getattribute__(self, name)
+#         if hasattr(self, 'attrs_num'):
+#             self.attrs_num -= 1
+#         object.__delattr__(self, item)
 #
 #
-# course = Item('pygen', 3900, 2)
+# music_group = AttrsNumberObject(name='Alexandra Savior', genre='dream pop')
 #
-# print(course.name)
-# print(course.price)
-# print(course.quantity)
-# print(course.total)
+# print(music_group.attrs_num)
+# del music_group.genre
+# print(music_group.attrs_num)
