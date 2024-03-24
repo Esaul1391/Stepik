@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class USADate:
     def __init__(self, year, month, day):
         self.year = year
@@ -118,3 +119,80 @@ class USADate:
 # print(counter.value)
 # counter.dec(10)
 # print(counter.value)
+=======
+class Triangle:
+    def __init__(self, a, b, c):
+        self.a = a
+        self.c = c
+        self.b = b
+
+    def perimeter(self):
+        return sum(self.a, self.b, self.c)
+
+
+class EquilateralTriangle(Triangle):
+    def __init__(self, side):
+        super().__init__(side, side, side)
+        self.side = side
+
+
+
+# class WeatherWarning:
+#     def rain(self):
+#         print('Ожидаются сильные дожди и ливни с грозой')
+#
+#     def snow(self):
+#         print('Ожидается снег и усиление ветра')
+#
+#     def low_temperature(self):
+#         print('Ожидается сильное понижение температуры')
+#
+#
+# class WeatherWarningWithDate(WeatherWarning):
+#     def rain(self, data):
+#         print(f'{data.strftime("%d.%m.%Y")}\nОжидаются сильные дожди и ливни с грозой')
+#
+#     def snow(self, data):
+#         print(f'{data.strftime("%d.%m.%Y")}\nОжидается снег и усиление ветра')
+#
+#     def low_temperature(self, data):
+#         print(f'{data.strftime("%d.%m.%Y")}\nОжидается сильное понижение температуры')
+#
+# from datetime import date
+#
+# weatherwarning = WeatherWarningWithDate()
+# dt = date(2022, 12, 12)
+#
+# weatherwarning.rain(dt)
+# weatherwarning.snow(dt)
+# weatherwarning.low_temperature(dt)
+
+# class BasicPlan:
+#     def __init__(self):
+#         self.can_stream = True
+#         self.can_download = True
+#         self.has_SD = True
+#         self.has_HD = False
+#         self.has_UHD = False
+#         self.num_of_devices = 1
+#         self.price = "8.99$"
+#
+# class SilverPlan(BasicPlan):
+#     def __init__(self):
+#         self.can_stream = True
+#         self.can_download = True
+#         self.has_SD = True
+#         self.has_HD = True
+#         self.has_UHD = True
+#         self.num_of_devices = 4
+#         self.price = "15.99$"
+#
+#
+# print(SilverPlan.can_stream)
+# print(SilverPlan.can_download)
+# print(SilverPlan.has_SD)
+# print(SilverPlan.has_HD)
+# print(SilverPlan.has_UHD)
+# print(SilverPlan.num_of_devices)
+# print(SilverPlan.price)
+>>>>>>> 582a0dd (1)
