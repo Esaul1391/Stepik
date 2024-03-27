@@ -1,23 +1,43 @@
-class HourClock:
-    def __init__(self, hours):
-        self.hours = hours
-
-    def get_hours(self):
-        return self._hours
-
-    def set_hours(self, value):
-        if isinstance(value, int) and 1 <= value <= 12:
-            self._hours = value
+def dict_travel(nested_dicts, prefix=''):
+    sorted_keys = sorted(nested_dicts.keys())
+    for key in sorted_keys:
+        if isinstance(nested_dicts[key], dict):
+            dict_travel(nested_dicts[key], f"{prefix}{key}.")
         else:
-            raise ValueError('Некорректное время')
+            print(f"{prefix}{key}: {nested_dicts[key]}")
 
-    hours = property(get_hours, set_hours)
+# Примеры использования:
 
-try:
-    HourClock('pizza time 🕷')
-except ValueError as e:
-    print(e)
-time = HourClock(7)
+data1 = {'a': 1, 'b': {'c': 30, 'a': 10, 'b': 20}}
+dict_travel(data1)
+
+data2 = {'d': 1, 'b': {'c': 30, 'a': 10, 'b': 20}, 'a': 100}
+dict_travel(data2)
+
+data3 = {'b': {'c': 30, 'a': 10, 'b': {'d': 40, 'e': 50}}}
+dict_travel(data3)
+
+
+# class HourClock:
+#     def __init__(self, hours):
+#         self.hours = hours
+#
+#     def get_hours(self):
+#         return self._hours
+#
+#     def set_hours(self, value):
+#         if isinstance(value, int) and 1 <= value <= 12:
+#             self._hours = value
+#         else:
+#             raise ValueError('Некорректное время')
+#
+#     hours = property(get_hours, set_hours)
+#
+# try:
+#     HourClock('pizza time 🕷')
+# except ValueError as e:
+#     print(e)
+# time = HourClock(7)
 
 
 
