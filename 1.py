@@ -1,221 +1,197 @@
-class Cycle:
-    def __int__(self, iterable):
-        self.iterable = iter(iterable)
+from itertools import product
 
+n = 3
+m = 2
 
-cycle = Cycle('bee')
-
-print(next(cycle))
-print(next(cycle))
-print(next(cycle))
-print(next(cycle))
-
-# from functools import partial
-#
-#
-# to_Timur = partial(send_email, text)
-# to_Timur('Тимур', 'timyrik20@beegeek.ru', 'text')
-#
-# send_an_invitation = partial()
-
-
-# from functools import partial
-#
-# def multiply(a, b):
-#     return a * b
-#
-# double = partial(multiply, 2)
-# triple = partial(multiply, 3)
-# print(triple(4))
-
-
-# from functools import wraps
-#
-# class MaxRetriesException(Exception):
-#     pass
-# def retry(times):
-#     def decorator(func):
-#         @wraps(func)
-#         def wrapper(*args, **kwargs):
-#             count = 0
-#             while count < times:
-#                 try:
-#                     return func(*args, **kwargs)
-#                 except Exception as e:
-#                     count += 1
-#             raise MaxRetriesException
-#         return wrapper
-#     return decorator
+print(*product(range))
 
 
 
-
-# from functools import wraps
+# from itertools import product
 #
-# def ignore_exception(*exceptions):
-#     def decorator(func):
-#         @wraps(func)
-#         def wrapper(*args, **kwargs):
-#             try:
-#                 return func(*args, **kwargs)
-#             except exceptions as e:
-#                 print(f"Исключение {type(e).__name__} обработано")
-#         return wrapper
-#     return decorator
+# def password_gen():
+#     nums = range(10)
+#     res = product(nums, nums, nums)
+#     return res
+#
+# passwords = password_gen()
 
 
 
-# from functools import wraps
+# from string import ascii_lowercase
+# from itertools import product
+#
+# letters = ascii_lowercase[:8]
+# digits = [1, 2, 3, 4, 5, 6, 7, 8]
+#
+# # for letter in letters:
+# #     for digit in digits:
+# #         print(letter, digit, sep='', end=' ')
 #
 #
-# def add_attrs(**kw):
-#     def my_dec(func):
-#         for k, v in kw.items():
-#             func.__dict__[k] = v
-#
-#         @wraps(func)
-#         def wrapper(*args, **kwargs):
-#             res = func(*args, **kwargs)
-#             return res
-#
-#         return wrapper
-#
-#     return my_dec
-#
-#
-# @add_attrs(attr2='geek')
-# @add_attrs(attr1='bee')
-# def beegeek():
-#     return 'beegeek'
-#
-#
-# print(beegeek.attr1)
-# print(beegeek.attr2)
-# print(beegeek.__dict__)
-# print(help(dict.popitem))
-
-# from functools import wraps
-#
-#
-# def takes(*a):
-#     def my_dec(func):
-#         @wraps(func)
-#         def wrapper(*args, **kwargs):
-#             res = func(*args, **kwargs)
-#             all_arguments = args + tuple(kwargs.values())
-#             for argument in all_arguments:
-#                 if not isinstance(argument, a):
-#                     raise TypeError
-#             return res
-#         return wrapper
-#     return my_dec
+# res = product(letters, digits)
+# for i in res:
+#     print(*i, sep='', end=' ')
 
 
-# from functools import wraps
-#
-# def strip_range(start, end, char='.'):
-#     def my_dec(func):
-#         @wraps(func)
-#         def wrapper(*args, **kwargs):
-#             res = func(*args, **kwargs)
-#             span = (end - start) * char
-#             if len(res) - len(res[:start]) < len(span):
-#                 concat = res[:start] + (len(res) - len(res[:start])) * char
-#             else:
-#                 concat = res[:start] + span + res[end:]
-#             return concat
-#         return wrapper
-#     return my_dec
+
+# from itertools import product, combinations_with_replacement
 #
 #
-# @strip_range(3, 20, '_')
-# def beegeek():
-#     return 'beegeek'
-#
-#
-# print(beegeek())
+# a = {1,2,3}
+# b = {'a','b','c','d','e'}
+# print(len(list(product(a, b))))
+# print(*product(b, a))
+# print(*product(a, a))
+# print(*product(b, b))
 
 
-# from functools import wraps
+
+# from itertools import combinations
 #
-# def repeat(times):
-#     def my_dec(func):
-#         @wraps(func)
-#         def wrapper(*args, **kwargs):
-#             for _ in range(times):
-#                 func(*args, **kwargs)
-#             return func
-#         return wrapper
-#     return my_dec
+# wallet = [100, 100, 50, 50, 50, 50, 20, 20, 20, 10, 10, 10, 10, 10, 5, 5, 1, 1, 1, 1, 1]
+# target = 100
+# sp = set()
+# count = 0
+# for i in range(1, len(wallet) + 1):
+#     for combo in combinations(wallet, i):
+#         if sum(combo) == target:
+#             sp.add(combo)
+#
+# print(len(sp))
+
+# from itertools import groupby
+#
+#
+# def ranges(numbers):
+#     sorted_nums = sorted(numbers)
+#     group_num = groupby(sorted_nums, key=lambda x: x - sorted_nums.index(x))
+#     res = []
+#     for _, i in group_num:
+#         sp = list(i)
+#         if len(sp) == 1:
+#             res.append((sp[0], sp[0]))
+#         else:
+#             res.append((sp[0], sp[-1]))
+#     return res
 
 
-# def takes_positive(func):
-#     def wrapper(*args, **kwargs):
-#         res = func(*args, **kwargs)
-#         common = args + tuple(kwargs.values())
-#         if any([not isinstance(i, int) for i in common]):
-#             raise TypeError
-#         elif any([i <= 0 for i in common]):
-#             raise ValueError
-#         return res
-#     return wrapper
+# numbers = [1, 2, 3, 4, 7, 8, 10]
+#
+# print(ranges(numbers))
+
+# from  itertools import groupby
+#
+# def group_anagrams(words):
+#     sort_words = sorted(words, key=lambda x: sorted(x))
+#     group_words = groupby(sort_words, key=lambda x: sorted(x))
+#     res = (tuple(l) for _, l in group_words)
+#     return res
+#
+# groups = group_anagrams(['evil', 'father', 'live', 'levi', 'book', 'afther', 'boko'])
+#
+# print(*groups)
+
+# from itertools import groupby
+#
+# tasks = [('Отдых', 'поспать днем', 3),
+#         ('Ответы на вопросы', 'ответить на вопросы в дискорде', 1),
+#         ('ЕГЭ Математика', 'доделать курс по параметрам', 1),
+#         ('Ответы на вопросы', 'ответить на вопросы в курсах', 2),
+#         ('Отдых', 'погулять вечером', 4),
+#         ('Курс по ооп', 'обсудить темы', 1),
+#         ('Урок по groupby', 'добавить задачи на программирование', 3),
+#         ('Урок по groupby', 'написать конспект', 1),
+#         ('Отдых', 'погулять днем', 2),
+#         ('Урок по groupby', 'добавить тестовые задачи', 2),
+#         ('Уборка', 'убраться в ванной', 2),
+#         ('Уборка', 'убраться в комнате', 1),
+#         ('Уборка', 'убраться на кухне', 3),
+#         ('Отдых', 'погулять утром', 1),
+#         ('Курс по ооп', 'обсудить задачи', 2)]
+#
+# sort_task = sorted(tasks, key=lambda x: x[0])
+# group_task = groupby(sort_task, key=lambda x: x[0])
+# for i, l in group_task:
+#     sp = sorted(list(l), key=lambda x: x[-1])
+#     print(f'{i}:')
+#     for k in sp:
+#         print(f'\t{k[-1]}. {k[1]}')
+#     print()
 
 
-# from functools import wraps
+# from itertools import groupby
 #
+# words = 'hi never here my blue'.split()
 #
-# def memoized(maxsize=None):
-#     def my_dec(func):
+# words = sorted(words, key=lambda x: len(x))
 #
-#         memory = {}
-#         def wrapper(*args, **kwargs):
-#             key = (args, tuple(sorted(kwargs.items())))
-#             if key not in memory:
-#                 if maxsize is None:
-#                     memory[key] = func(*args, **kwargs)
-#                 elif len(memory) == maxsize:
-#                     memory.popitem()
-#                     memory[key] = func(*args, **kwargs)
-#             return memory[key]
-#
-#         return wrapper
-#     return my_dec
+# res = groupby(words, key=lambda x: len(x))
+# for i, l in res:
+#     sp = ', '.join(i for i in sorted(list(l)))
+#     print(f'{i} -> {sp}')
 
 
-# from functools import wraps
+# from collections import namedtuple
+# from itertools import groupby
 #
+# Student = namedtuple('Student', ['surname', 'name', 'grade'])
 #
-# def bucket(*a, **k):
-#     def my_dec(func):
-#         @wraps(func)
-#         def wrapper(*args, **kwargs):
-#             res = func(*args, **kwargs)
-#             bucket_args = a
-#             bucket_kwargs = k
-#             print((bucket_args, bucket_kwargs))
-#             return res
-#         return wrapper
-#     return my_dec
-
-# def  introduce_on_debug(func):
-#     def wrapper(*args, **kwargs):
-#         f = func(*args, **kwargs)
+# students = [Student('Гагиев', 'Александр', 10), Student('Дедегкаев', 'Илья', 11), Student('Кодзаев', 'Георгий', 10),
+#             Student('Набокова', 'Алиса', 11), Student('Кораев', 'Артур', 10), Student('Шилин', 'Александр', 11),
+#             Student('Уртаева', 'Илина', 11), Student('Салбиев', 'Максим', 10), Student('Капустин', 'Илья', 11),
+#             Student('Гудцев', 'Таймураз', 11), Student('Перчиков', 'Максим', 10), Student('Чен', 'Илья', 11),
+#             Student('Елькина', 'Мария', 11),Student('Макоев', 'Руслан', 11), Student('Албегов', 'Хетаг', 11),
+#             Student('Щербак', 'Илья', 10), Student('Идрисов', 'Баграт', 11), Student('Гапбаев', 'Герман', 10),
+#             Student('Цивинская', 'Анна', 10), Student('Туткевич', 'Юрий', 11), Student('Мусиков', 'Андраник', 11),
+#             Student('Гадзиев', 'Георгий', 11), Student('Белов', 'Юрий', 11), Student('Акоева', 'Диана', 11),
+#             Student('Денисов', 'Илья', 11), Student('Букулова', 'Диана', 10), Student('Акоева', 'Лера', 11)]
 #
-#         return f
-#     return wrapper()
+# students.sort(key=lambda x: x.name)
+# group_name = groupby(students, key=lambda x: x.name)
+# what_max_name = max(group_name, key=lambda x: sum(1 for i in x[1]))
+# print(what_max_name[0])
 
 
-# def top_grade(grades: dict[str, list[int]]) -> dict[str, int]:
+# from collections import namedtuple
+# from itertools import groupby
 #
-#     d = {'name': grades['name'], 'top_grade': max(grades['grades'])}
-#     return d
+# Person = namedtuple('Person', ['name', 'age', 'height'])
 #
-# annotations = top_grade.__annotations__
+# persons = [Person('Tim', 63, 193), Person('Eva', 47, 158),
+#            Person('Mark', 71, 172), Person('Alex', 45, 193),
+#            Person('Jeff', 63, 193), Person('Ryan', 41, 184),
+#            Person('Ariana', 28, 158), Person('Liam', 69, 193)]
 #
-# print(annotations['grades'])
-# def get_digits(number: int | float) -> list[int]:
-#     return [int(digit) for digit in str(number) if digit.isdigit()]
+# persons.sort(key=lambda x: x.height)
+# res = groupby(persons, key=lambda x: x.height)
+# for i, it in res:
+#     res1 = ', '.join(i.name for i in list(it))
+#     print(f'{i}: {res1}')
+
+# from  itertools import zip_longest
 #
-# annotations = get_digits.__annotations__
 #
-# print(annotations['number'])
+# def grouper(iterable, n):
+#     res = []
+#     while len(iterable) > n:
+#         res.extend(iterable[:n])
+#         iterable = iterable[:n]
+#     if iterable:
+#         res.extend(iterable)
+#     res_iter = zip_longest(*res)
+#     return res_iter
+#
+# numbers = [1, 2, 3, 4, 5, 6]
+#
+# print(*grouper(numbers, 2))
+
+
+# from itertools import chain, tee
+#
+#
+# def ncycles(iterable, times):
+#     res = chain.from_iterable(tee(iterable, times))
+#     return res
+#
+# print(*ncycles([1, 2, 3, 4], 3))
