@@ -1,16 +1,102 @@
-class Animal:
-    pass
+class PermaDict:
+    def __init__(self, data=None):
+        self.data = data.copy() if data is not None else {}
 
-class Cat(Animal):
-    pass
+    def keys(self):
+        return iter(self.data.keys())
+
+    def values(self):
+        return iter(self.data.values())
+
+    def items(self):
+        return iter(self.data.items())
+
+    def __getitem__(self, item):
+        return self.data[item]
+
+    def  __setitem__(self, key, value):
+        if key in self.data:
+            raise KeyError('Изменение значения по ключу невозможно')
+        self.data[key] = value
+
+    def __delitem__(self, key):
+        del self.data[key]
+
+    def __iter__(self):
+        return iter(self.data)
+
+    def __len__(self):
+        return len(self.data)
 
 
-obj = Animal()
+d = dict.fromkeys(range(100), None)
+attrdict = PermaDict(d)
+print(*attrdict)
 
-print(isinstance(obj, Animal))
-print(isinstance(obj, Cat))
+d[100] = None
+print(*attrdict)
 
 
+
+
+
+
+
+
+
+
+# class AttrDict:
+#     def __init__(self, data=None):
+#         self.data = data if data else {}
+#
+#     def __len__(self):
+#         return len(self.data)
+#
+#     def __iter__(self):
+#         return iter(self.data.keys())
+#
+#     def __getitem__(self, key):
+#         return self.data[key]
+#
+#     def __getattr__(self, attr):
+#         return self.data[attr]
+#
+#     def __setattr__(self, key, value):
+#         self.data[key] = value
+#
+#     def __delattr__(self, item):
+#         del self.data[item]
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class CyclicList:
+#     def __init__(self, iterable=None):
+#         self.iterable = iterable
+#         self.length = len()
+#
+#     def append(self, item):
+#         return self.iterable.append(item)
+#
+#     def pop(self, index=None):
+#         if index is None:
+#             index = self.length - 1
+#         else:
+#             index %= self.length
 
 
 
