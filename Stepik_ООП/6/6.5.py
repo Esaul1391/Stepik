@@ -1,48 +1,29 @@
-class Closer:
-    def __init__(self, obj):
-        self.obj = obj
-        self.closed = False
+class Atomic:
+    def __init__(self, data, deep=False):
+        self.data = data
+        self.snapshot = None
+        self.deep = deep
 
     def __enter__(self):
-        return self
+        self.snapshot = self.deepcopy(self.data) if self.deep else self.data
+        return self.data
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        try:
-            self.obj.close()
-            self.closed = True
-        except AttributeError:
-            print('Незакрываемый объект')
-            self.closed = False
+        if exc_type is not None:
+            if isinstance(exc_val, IndexError):
+                return True  # Exit early if IndexError occurs
+            if self.deep:
+                self.data.clear()
+                self.data.extend(self.snapshot)
+            else:
+                self.data[:] = self.snapshot
 
-output = open('output.txt', 'w', encoding='utf-8')
-
-with Closer(output) as file:
-    print(file.closed)
-
-print(file.closed)
-
-
-
-# class Greeter:
-#     def __init__(self, name):
-#         self.name = name
-#
-#     def __enter__(self):
-#         print(f'Приветствую, {self.name}!')
-#         return self
-#
-#     def __exit__(self, exc_type, exc_val, exc_tb):
-#         print(f'До встречи, {self.name}!')
-
-
-
-
-# class SuppressAll:
-#     def __enter__(self):
-#         pass
-#
-#     def __exit__(self, exc_type, exc_value, traceback):
-#         if exc_type:
-#             pass
-#         return True
-
+    def deepcopy(self, obj):
+        if isinstance(obj, list):
+            return [self.deepcopy(item) for item in obj]
+        elif isinstance(obj, dict):
+            return {key: self.deepcopy(value) for key, value in obj.items()}
+        elif isinstance(obj, set):
+            return {self.deepcopy(item) for item in obj}
+        else:
+            return obj
