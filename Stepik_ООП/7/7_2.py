@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 class USADate:
     def __init__(self, year, month, day):
         self.year = year
@@ -119,7 +119,6 @@ class USADate:
 # print(counter.value)
 # counter.dec(10)
 # print(counter.value)
-=======
 class Triangle:
     def __init__(self, a, b, c):
         self.a = a
@@ -195,4 +194,3 @@ class EquilateralTriangle(Triangle):
 # print(SilverPlan.has_UHD)
 # print(SilverPlan.num_of_devices)
 # print(SilverPlan.price)
->>>>>>> 582a0dd (1)

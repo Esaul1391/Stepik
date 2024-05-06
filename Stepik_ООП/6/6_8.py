@@ -1,30 +1,54 @@
+from random import randrange
 
 
 
-class TypeChecked:
-    def __init__(self, *attrs):
-        self.attrs = attrs
+class RandomNumber:
+    def __init__(self, start, end, cache=False):
+        self.start = start
+        self.end = end
+        self.cache = cache
 
     def __set_name__(self, owner, name):
         self._name = name
 
     def __get__(self, instance, owner):
-        if self._name in instance.__dict__:
-            return instance.__dict__[self._name]
-        raise AttributeError('Атрибут не найден')
+        if instance is None:
+            return self
+        if self.cache == False:
+            return randrange(self.start, self.end)
+        return self.cache
 
-    def __set__(self, instance, value):
-        if not isinstance(value, self.attrs):
-            raise TypeError('Некорректное значение')
-        instance.__dict__[self._name] = value
+    def __set__(self, owner, name):
+        raise AttributeError('Изменение невозможно')
 
-class Student:
-    name = TypeChecked(str)
 
-student = Student()
-student.name = 'Mary'
+class MagicPoint:
+    x = RandomNumber(0, 5)
+    y = RandomNumber(0, 5)
+    z = RandomNumber(0, 5)
 
-print(student.name)
+magicpoint = MagicPoint()
+
+try:
+    magicpoint.x = 10
+except AttributeError as e:
+    print(e)
+# class TypeChecked:
+#     def __init__(self, *attrs):
+#         self.attrs = attrs
+#
+#     def __set_name__(self, owner, name):
+#         self._name = name
+#
+#     def __get__(self, instance, owner):
+#         if self._name in instance.__dict__:
+#             return instance.__dict__[self._name]
+#         raise AttributeError('Атрибут не найден')
+#
+#     def __set__(self, instance, value):
+#         if not isinstance(value, self.attrs):
+#             raise TypeError('Некорректное значение')
+#         instance.__dict__[self._name] = value
 
 
 # class MaxCallsException(Exception):
@@ -48,10 +72,6 @@ print(student.name)
 #
 #     def __set__(self, obj, value):
 #         self.value = value
-
-
-
-
 
 
 # class NonNegativeInteger:
@@ -78,11 +98,6 @@ print(student.name)
 #     score = NonNegativeInteger('score')
 #
 # print(Student.score.__class__)
-
-
-
-
-
 
 
 # from keyword import kwlist
@@ -119,10 +134,6 @@ print(student.name)
 #     print(e)
 
 
-
-
-
-
 # class PositiveNumber:
 #     def __set_name__(self, cls, attr):
 #         self._attr = attr
@@ -148,10 +159,6 @@ print(student.name)
 # cat = Cat(1)
 #
 # print(cat.age)
-
-
-
-
 
 
 # class PositiveNumber:
