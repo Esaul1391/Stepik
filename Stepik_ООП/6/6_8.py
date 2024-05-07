@@ -15,6 +15,11 @@ class Versioned:
             return instance.__dict__[self._name]
         raise AttributeError('Атрибут не найден')
 
+    def get_version(self, instance, n):
+        pass
+
+    def set_version(self, instance, n):
+        pass
 
 
 
