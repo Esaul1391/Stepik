@@ -1,30 +1,41 @@
 
 
 
-class TypeChecked:
-    def __init__(self, *attrs):
-        self.attrs = attrs
+class Versioned:
+    def __init__(self):
+        self.all_attrs = []
 
     def __set_name__(self, owner, name):
         self._name = name
 
     def __get__(self, instance, owner):
+        if instance is None:
+            return self
         if self._name in instance.__dict__:
             return instance.__dict__[self._name]
         raise AttributeError('Атрибут не найден')
 
-    def __set__(self, instance, value):
-        if not isinstance(value, self.attrs):
-            raise TypeError('Некорректное значение')
-        instance.__dict__[self._name] = value
 
-class Student:
-    name = TypeChecked(str)
 
-student = Student()
-student.name = 'Mary'
 
-print(student.name)
+# class TypeChecked:
+#     def __init__(self, *attrs):
+#         self.attrs = attrs
+#
+#     def __set_name__(self, owner, name):
+#         self._name = name
+#
+#     def __get__(self, instance, owner):
+#         if self._name in instance.__dict__:
+#             return instance.__dict__[self._name]
+#         raise AttributeError('Атрибут не найден')
+#
+#     def __set__(self, instance, value):
+#         if not isinstance(value, self.attrs):
+#             raise TypeError('Некорректное значение')
+#         instance.__dict__[self._name] = value
+
+
 
 
 # class MaxCallsException(Exception):
