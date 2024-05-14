@@ -1,25 +1,62 @@
-class AlwaysEquals:
-    def __init__(self, data):
-        self.data = data
+class Row:
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+    def __setattr__(self, key_, value):
+        raise AttributeError('Изменение значения атрибута невозможно')
+
+    def __delattr__(self, item):
+        raise AttributeError('Удаление атрибута невозможно')
+
+    def __str__(self):
+        s = ", ".join([f"{k}={repr(v)}" for k, v in self.__dict__.items()])
+        return f"Row({s})"
 
     def __eq__(self, other):
-        return True
+        if isinstance(other, Row):
+            return tuple(self.__dict__.items()) == tuple(other.__dict__.items())
+        return NotImplemented
+
+    def __ne__(self, other):
+        result = self.__eq__(other)
+        if result is NotImplemented:
+            return result
+        return not result
 
     def __hash__(self):
-        return id(self)
-
-    def __repr__(self):
-        return f'AlwaysEquals({repr(self.data)})'
+        return hash(tuple(sorted(self.__dict__.items())))
 
 
-data = {}
-obj1 = AlwaysEquals('bee')
-obj2 = AlwaysEquals('geek')
+row = Row(a='A', b='B', c='C')
 
-data[obj1] = 'пчела'
-data[obj2] = 'гик'
+print(row)
+print(row.a, row.b, row.c)
 
-print(data)
+
+
+# class AlwaysEquals:
+#     def __init__(self, data):
+#         self.data = data
+#
+#     def __eq__(self, other):
+#         return True
+#
+#     def __hash__(self):
+#         return id(self)
+#
+#     def __repr__(self):
+#         return f'AlwaysEquals({repr(self.data)})'
+#
+#
+# data = {}
+# obj1 = AlwaysEquals('bee')
+# obj2 = AlwaysEquals('geek')
+#
+# data[obj1] = 'пчела'
+# data[obj2] = 'гик'
+#
+# print(data)
 
 
 # from time import perf_counter
