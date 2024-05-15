@@ -1,31 +1,63 @@
 import functools
 
 
-class returns:
-    def __init__(self, datetype):
-        self.datetype = datetype
-
+class ignore_exception:
+    def __init__(self, *args, **kwargs):
+        self.ex = list(args) + list(kwargs.values())
+        print()
 
     def __call__(self, func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            if any((
-                    not all(isinstance(arg, (self.datetype)) for arg in args),
-                    not all(isinstance(arg, (self.datetype)) for arg in kwargs.values())
-            )):
-                raise TypeError
-            return func(*args, **kwargs)
+            try:
+                res = func(*args, **kwargs)
+            except Exception as e:
+                print(f'Исключение {e} обработано')
         return wrapper
 
-@returns(int)
-def add(a, b):
-    return a + b
 
-try:
-    print(add('1', '2'))
-except Exception as error:
-    print(type(error))
+@ignore_exception(ZeroDivisionError, TypeError, ValueError)
+def func(x):
+    return 1 / x
 
+
+func(0)
+
+
+
+# import functools
+#
+#
+# class exception_decorator:
+#     def __init__(self, func):
+#         functools.update_wrapper(self, func)
+#         self.func = func
+#
+#     def __call__(self, *args, **kwargs):
+#         try:
+#             res = self.func(*args, **kwargs)
+#             return (res, None)
+#         except Exception as e:
+#             return (None, type(e))
+
+
+
+
+# import functools
+#
+#
+# class returns:
+#     def __init__(self, datetype):
+#         self.datetype = datetype
+#
+#     def __call__(self, func):
+#         @functools.wraps(func)
+#         def wrapper(*args, **kwargs):
+#             result = func(*args, **kwargs)
+#             if not isinstance(result, self.datetype):
+#                 raise TypeError
+#             return result
+#         return wrapper
 
 
 # import functools
