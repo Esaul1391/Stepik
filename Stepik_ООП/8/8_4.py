@@ -1,27 +1,45 @@
 import functools
 
 
-class ignore_exception:
-    def __init__(self, *args, **kwargs):
-        self.ex = list(args) + list(kwargs.values())
-        print()
+class type_check:
+    def __init__(self, types):
+        self.types = types
 
     def __call__(self, func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            try:
-                res = func(*args, **kwargs)
-            except Exception as e:
-                print(f'Исключение {e} обработано')
+            res = func(*args, **kwargs)
+            create_sp = zip(args, self.types)
+            for arg, tp in create_sp:
+                if not isinstance(arg, tp):
+                    raise TypeError
+            return res
         return wrapper
 
 
-@ignore_exception(ZeroDivisionError, TypeError, ValueError)
-def func(x):
-    return 1 / x
 
 
-func(0)
+
+
+
+# import functools
+#
+#
+# class ignore_exception:
+#     def __init__(self, *args):
+#         self.ex = args
+#         print()
+#
+#     def __call__(self, func):
+#         @functools.wraps(func)
+#         def wrapper(*args, **kwargs):
+#             try:
+#                 res = func(*args, **kwargs)
+#                 return res
+#             except self.ex as e:
+#                 print(f'Исключение {type(e).__name__} обработано')
+#         return wrapper
+
 
 
 
