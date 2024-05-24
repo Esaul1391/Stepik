@@ -1,29 +1,57 @@
-import sys
+class Translator:
+    def add(self, eng, rus):
+        if 'tr' not in self.__dict__:
+            self.tr = {}
 
-# программу не менять, только добавить два метода
-lst_in = list(map(str.strip, sys.stdin.readlines()))  # считывание списка строк из входного потока
-
-
-class DataBase:
-    lst_data = []
-    FIELDS = ('id', 'name', 'old', 'salary')
-
-    def insert(self, data):
-        for x in data:
-            self.lst_data.append(dict(zip(self.FIELDS, x.split())))
-
-    def select(self, a, b):
-        if b > len(self.lst_data):
-            b = len(self.lst_data)
-        return self.lst_data[a:b+1]
+        self.tr.setdefault(eng, [])
+        if rus not in self.tr[eng]:
+            self.tr[eng].append(rus)
 
 
-db = DataBase()
-db.insert(lst_in)
+    def remove(self, eng):
+        if eng in self.tr:
+            del self.tr[eng]
+
+    def translate(self, eng):
+        return self.tr[eng]
+
+
+tr = Translator()
+tr.add("tree", "дерево")
+tr.add("car", "машина")
+tr.add("car", "автомобиль")
+tr.add("leaf", "лист")
+tr.add("river", "река")
+tr.add("go", "идти")
+tr.add("go", "ехать")
+tr.add("go", "ходить")
+tr.add("milk", "молоко")
+tr.remove('car')
+print(*tr.translate('go'))
 
 
 
 
+
+
+# import sys
+#
+# # программу не менять, только добавить два метода
+# lst_in = list(map(str.strip, sys.stdin.readlines()))  # считывание списка строк из входного потока
+#
+#
+# class DataBase:
+#     lst_data = []
+#     FIELDS = ('id', 'name', 'old', 'salary')
+#
+#     def insert(self, data):
+#         for x in data:
+#             self.lst_data.append(dict(zip(self.FIELDS, x.split())))
+#
+#     def select(self, a, b):
+#         if b > len(self.lst_data):
+#             b = len(self.lst_data)
+#         return self.lst_data[a:b+1]
 
 
 # import sys
@@ -53,7 +81,6 @@ db.insert(lst_in)
 # data, result = sr.readlines()
 
 
-
 # class Graph:
 #
 #
@@ -68,12 +95,6 @@ db.insert(lst_in)
 #
 # graph_1.set_data([10, -5, 100, 20, 0, 80, 45, 2, 5, 7])
 # graph_1.draw()
-
-
-
-
-
-
 
 
 # class MediaPlayer:
