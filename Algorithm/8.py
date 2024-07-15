@@ -5,14 +5,25 @@ class Solution(object):
         :rtype: int
         """
         last_digit = None
+        res = 0
         mult = 1
         for i in s:
-            if last_digit == 0 and i == '-':
+
+            if i == '-' and last_digit is None:
                 mult = -1
+
             if i.isdigit():
-                if
+                last_digit = i
+                # if int(i) == 0 and res == 0:
+                #     continue
+                res = (res * 10) + int(i)
+            if i.isalpha():
+                break
+        return res * mult
 
 
 s = Solution()
-st = '  45'
-print(s.myAtoi(st))
+# st = '0-1'
+st = '0-1'
+print(s.myAtoi('0-1'))
+print(s.myAtoi("words and 987"))
