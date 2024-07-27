@@ -4,10 +4,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        last_i = nums[1]
-        i_stop = last_i
-        for i in nums[2:]:
-            if i == i_stop:
-                nums.pop(i)
-            if nums[i] == nums[i-1]:
-                i_stop = i
+        if len(nums) <= 2:
+            return len(nums)
+
+        j = 2
+
+        for i in range(2, len(nums)):
+            if nums[i] != nums[j - 2]:
+                nums[j] = nums[i]
+                j += 1
+
+        return j
